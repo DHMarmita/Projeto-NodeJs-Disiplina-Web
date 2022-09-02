@@ -53,6 +53,7 @@ nav div{
     display: flex;
     text-decoration: none;
     padding-left: 10px;
+    color: black;
 }
 .download_app img{
     width: 30px;
@@ -73,6 +74,7 @@ nav div{
     border-radius: 4px;
     padding-right: 30px;
     padding-left: 30px;
+    color: black;
 }
 .order_here img{
     width: 30px;
@@ -130,6 +132,7 @@ header img{
 }
 .click_here a{
     text-decoration: none;
+    color: black;
 }
 @media screen and (max-device-width: 414px) {
     .menu_1{
