@@ -203,9 +203,3 @@ header img{
         height: 25px;
     }
 }
-@media screen and (max-device-width: 1440px) {
-    nav{
-        margin-left: 200px;
-        margin-right: 200px;
-    }
-}
