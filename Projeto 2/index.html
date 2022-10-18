@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt=BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 2</title>
+</head>
+<body>
+    <h1> Digite um Objeto e Retorne um Emoji </h1>
+    <input type="text" name="search" value=""><button>BUSCAR</button>
+    <p><span>Emoji: </span> <span class="result"></span></p>
+    <script type="text/javascript" charset="utf-8">
+        document.querySelector('button').addEventListener('click',function(){
+            var search = document.querySelector("input"),
+                result = document.querySelector('.result');
+            //RETORNAR O CARACTER DO EMOJI
+            function show_emoji(info){
+                var obj_info = JSON.parse(info);
+                result.innerHTML = obj_info?.at(0)?.character;
+            }
+            //AJAX - REQUEST
+            function get_emoji(callback, search){
+                //var xhttp = new XMLHttpRequest();
+                //COMPATIBILIDADE COM INTERNTET EXPLORER (VERSÕES ANTIGAS) 
+                var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP") //IF TERNÁRIO
+                xhttp.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200){
+                        callback(this.responseText);
+                    }
+                }
+                xhttp.open("GET", "https://emoji-api.com/emojis/"+ search?.value?.replace(/ /g, "-") +"?access_key=58a2a558d9009d1abd2f119452849f7466f29fda");
+                xhttp.send();
+            }
+            get_emoji(show_emoji, search);
+        });
+    </script>
+</body>
+</html>
