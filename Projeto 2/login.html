@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt=BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 2</title>
-</head>
-<body>
-    <div id="overlay" style="display: none;"> 
-        <h1> Digite um Objeto e Retorne um Emoji</h1>
-        <input type="text" name="search" value="">
-        <button type="submit">Buscar</button>
-        <p><span>Emoji: </span> <span class="result"></span></p>
-    </div>
+<html>
+    <head>
+        <title>Learning JavaScript</title>
+    </head>
 
-    <div id="login-form"> 
-        <input id="userEmail" type="email" placeholder="Enter Email" value=""/>
-        <input id="login_btn" type="submit" value="Login" onClick="get_users(register_user)"/> 
-    </div>
+    <body>
+        <div id="login-form"> 
+            <input id="userEmail" type="email" placeholder="Enter Email" value=""/>
+            <input id="login_btn" type="submit" value="Login" onClick="get_users(register_user)"/> 
+        </div>
+        <div id="overlay" style="display: none;"> 
+            <h1> Digite um Objeto e Retorne um Emoji</h1>
+            <input type="text" name="search" value="">
+            <button type="submit">Buscar</button>
+            <p><span>Emoji: </span> <span class="result"></span></p>
+        </div>
+    </body>
 
     <script type="text/javascript" charset="utf-8">
         document.querySelector('button').addEventListener('click',function(){
@@ -27,6 +25,7 @@
             function show_emoji(info){
                 var obj_info = JSON.parse(info);
                 result.innerHTML = obj_info?.at(0)?.character;
+                console.log(obj_info);
             }
             //AJAX - REQUEST
             function get_emoji(callback, search){
@@ -81,6 +80,7 @@
             xhttp.open("GET","https://reqres.in/api/users?page=2");
             xhttp.send();
         }
+    
     </script>
-</body>
+
 </html>
