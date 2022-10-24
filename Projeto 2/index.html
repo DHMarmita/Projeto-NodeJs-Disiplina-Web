@@ -1,86 +1,124 @@
 <!DOCTYPE html>
-<html lang="pt=BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 2</title>
+    <title>McDonald's - Brasil</title>
+    <link rel="stylesheet" href="CSS/main.css">
 </head>
 <body>
-    <div id="overlay" style="display: none;"> 
-        <h1> Digite um Objeto e Retorne um Emoji</h1>
-        <input type="text" name="search" value="">
-        <button type="submit">Buscar</button>
-        <p><span>Emoji: </span> <span class="result"></span></p>
-    </div>
-
-    <div id="login-form"> 
-        <input id="userEmail" type="email" placeholder="Enter Email" value=""/>
-        <input id="login_btn" type="submit" value="Login" onClick="get_users(register_user)"/> 
-    </div>
-
-    <script type="text/javascript" charset="utf-8">
+    <nav>
+        <div>
+            <img class="logo" src="IMG/mcdonalds-logo-footer-bg-white.png" alt="McDonald's Logo">
+            <img class="burger" src="IMG/menu_hamburger_burger_icon_176431.png" alt="Burger Button">
+            <div class="menu_1">
+                <ul>
+                    <li><a href="https://www.mcdonalds.com.br/quemsomos/trabalhe-conosco">Trabalhe Conosco</a></li>
+                    <li><a href="https://www.mcdonalds.com.br/contato">Fale Conosco</a></li>
+                    <li><a href="https://www.mcdonalds.com.br/restaurantes">Méqui mais Próximo</a></li>
+                </ul>
+            </div>
+            <div class="download_app">
+                <a href="https://www.mcdonalds.com.br/apps">
+                    <img src="IMG/MCD_Descarga_la_app_406b004273.png" alt="Baixe o App McDonald's">
+                    <p>Baixe o App</p>
+                </a>
+            </div>
+            <div class="order_here">
+                <a href="https://www.mcdonalds.com.br/pedidos">
+                    <img src="IMG/79_15_1_icone_70x70_bf9839ed7c.png" alt="Peça seu Méqui">
+                    <p>Peça seu Méqui</p>
+                </a>
+            </div>
+            <div class="menu_2">
+                <ul>
+                    <li>Cardápio</li>
+                    <li>Lançamentos</li>
+                    <li>Quem Somos</li>
+                    <li>Família</li>
+                    <li>Promoções</li>
+                    <li>Méqui pra você</li>
+                    <li>McDia Feliz</li>
+                </ul>
+            </div>
+            <div id="login-form"> 
+                <input id="userEmail" type="email" placeholder="Enter Email" value=""/>
+                <input id="userPassword" type="password" placeholder="Enter Password" value=""/>
+                <input id="login_btn" type="submit" value="Login" onClick="login();"/> 
+            </div>
+            <div id="overlay"> 
+                <input type="text" name="search" value=""class="name" placeholder="Enter a emoji">
+                <button type="submit">Buscar</button>
+                <span>Emoji: </span> <span class="result"></span>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <header>
+            <img class="desktop" src="IMG/592_3_1_banner_home_1440x650_28f9c187ed.png" alt="Banner Promocional">
+            <img class="mobile" src="IMG/592_3_1_banner_home_320x480_8ea43de717.png" alt="Banner Promocional Mobile">
+            <div class="block">
+                <h1 class="first_label">PEGA ESSA DICA</h1>
+                <p class="second_label">Peça seu Méqui sem pegar fila ou pelo McDelivery.</ap>
+                <div class="click_here">
+                    <a href="https://www.mcdonalds.com.br/pedidos"> 
+                        <p>Clique aqui!</p> 
+                    </a>   
+                </div>
+            </div>
+        </header>
+    </section>
+    <script type="text/javascript">
+        function login(){
+            var email = document.getElementById('userEmail'),
+                password = document.getElementById('userPassword');
+            if(password.value == '' || password.value == null || email.value.length <= 3 || email.value == null || email.value == ''){
+                alert('Credenciais Invalida');
+            }else{
+                post_login(document.getElementById('userEmail').value, document.getElementById('userPassword').value);
+            }
+        }
+        function post_login(login, password){
+            var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xhttp.open("POST","https://reqres.in/api/login",true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({"email": login,"password": password}));
+            xhttp.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200){
+                        var token = (JSON.parse(this.responseText).token);
+                        localStorage.setItem("token",token);
+                        authenticate();
+                    }
+                }
+        }
+        function authenticate(){
+            if (localStorage.getItem('token') != null && localStorage.getItem('token') != "undefined"){
+                document.getElementById('overlay').style.display = 'block';
+            }else{
+                document.getElementById('overlay').style.display = 'none';
+            }
+        }
         document.querySelector('button').addEventListener('click',function(){
-            var search = document.querySelector("input"),
+            var search = document.querySelector(".name"),
                 result = document.querySelector('.result');
-            //RETORNAR O CARACTER DO EMOJI
             function show_emoji(info){
                 var obj_info = JSON.parse(info);
                 result.innerHTML = obj_info?.at(0)?.character;
             }
-            //AJAX - REQUEST
             function get_emoji(callback, search){
-                //var xhttp = new XMLHttpRequest();
-                //COMPATIBILIDADE COM INTERNTET EXPLORER (VERSÕES ANTIGAS) 
-                var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP") //IF TERNÁRIO
+                var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP")
                 xhttp.onreadystatechange = function(){
                     if (this.readyState == 4 && this.status == 200){
                         callback(this.responseText);
                     }
                 }
-                xhttp.open("GET", "https://emoji-api.com/emojis/"+ search?.value?.replace(/ /g, "-") +"?access_key=58a2a558d9009d1abd2f119452849f7466f29fda");
-                xhttp.send();
-            }
-            get_emoji(show_emoji, search);
-        });
-
-        function register_user(info){
-            var user_info = JSON.parse(info);
-            var sucess = 0;
-            for(i=0;i < user_info.data.length;i++){
-                if (document.getElementById('userEmail').value == user_info.data.at(i).email){
-                    localStorage.setItem('id', user_info.data.at(i).id);
-                    localStorage.setItem('email', user_info.data.at(i).email);
-                    localStorage.setItem('first_name', user_info.data.at(i).first_name);
-                    localStorage.setItem('last_name', user_info.data.at(i).last_name);
-                    localStorage.setItem('avatar', user_info.data.at(i).avatar);
-                    sucess = 1;
-                }
-            }
-            if (sucess == 1){
-                if(document.getElementById('overlay').style.display = 'none'){
-                    document.getElementById('overlay').style.display = 'block';
-                }
-                alert('LOGIN FEITO COM SUCESSO');
-            }else{
-                if(document.getElementById('overlay').style.display = 'block'){
-                    document.getElementById('overlay').style.display = 'none';
-                }
-                alert('FALHA NO LOGIN');
-                localStorage.clear();
-            }
-        }
-
-        function get_users(callback){
-            var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-            xhttp.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    callback(this.responseText);
-                }
-            }
-            xhttp.open("GET","https://reqres.in/api/users?page=2");
+            xhttp.open("GET", "https://emoji-api.com/emojis/"+ search?.value?.replace(/ /g, "-") +"?access_key=58a2a558d9009d1abd2f119452849f7466f29fda");
             xhttp.send();
         }
+        get_emoji(show_emoji, search);
+        });
+        authenticate();
     </script>
 </body>
 </html>
