@@ -73,7 +73,7 @@
         function login(){
             var email = document.getElementById('userEmail'),
                 password = document.getElementById('userPassword');
-            if(password.value == '' || password.value == null || email.value.length <= 3 || email.value == null || email.value == ''){
+            if(password.value == '' || password.value == null || password.value.length <= 3 || email.value.length <= 3 || email.value == null || email.value == ''){
                 alert('Credenciais Invalida');
             }else{
                 post_login(document.getElementById('userEmail').value, document.getElementById('userPassword').value);
