@@ -7,7 +7,6 @@ Banco de dados: MongoDB Atlas - https://cloud.mongodb.com/v2/639396651d4cad6afb8
 Esta faltando apenas a pasta de node_modules, basta executar o comando "npm i" para instalar as dependências
 
 CRITÉRIOS DE AVALIAÇÃO QUE NÃO FORAM CUMPRIDOS:
-- Os forms não estão estilizados (Irrelevante para a avaliação)
 - Não foi possivel realizar o upload de imagens ou vídeos
 - Não há contador de postagem ou de visualizações
 - Não há uma plataforma de deploy desta aplicação
