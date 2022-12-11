@@ -4,7 +4,7 @@ Projeto 3 Express.js:
 
 Banco de dados: MongoDB Atlas - https://cloud.mongodb.com/v2/639396651d4cad6afb844b16#clusters
 
-Esta faltando apenas a pasta de node_modules, basta executar o comando "npm i" para instalar as dependências# Instalação
+Esta faltando apenas a pasta de node_modules, basta executar o comando "npm i" para instalar as dependências
 
 CRITÉRIOS DE AVALIAÇÃO QUE NÃO FORAM CUMPRIDOS:
 - Os forms não estão estilizados (Irrelevante para a avaliação)
