@@ -86,41 +86,49 @@
                         </fieldset>
                     </form>
                     <% if (!user) {%>
-                    <%} else {%>
-                        <p>Usuário: <%= user.email %><br> Administrador: <% if (user.administrador != 'true'){%> Não <% }else{ %> Sim <%}  %>  </p>
-                        <form method="POST" action="/postar">
-                            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                        <%} else {%>
+                            <p>Usuário: <%= user.email %><br> Administrador: <% if (user.administrador !='true' ){%> Não
+                                        <% }else{ %> Sim <%} %>
+                            </p>
                             <fieldset>
                                 <legend>Postagens</legend>
-                                 <% if(user.administrador == 'true') {%> 
-                                <fieldset>
-                                    <legend>Faça a sua postagem</legend>
-                                    <label for="titulo">Título:</label>
-                                    <input type="text" name="titulo">
-                                    <label for="descricao">Descrição:</label>
-                                    <input type="text" name="descricao">
-                                    <label for="imagem">Imagem</label>
-                                    <input type="file" name="imagem" accept="image/">
-                                    <button type="submit">Postar</button>
-                                </fieldset>
-                                <%};  %> 
-                                <fieldset>
-                                <legend>Todas as Postagens</legend>
-                                <% posts.forEach(post=>{ %>
-                                    <div class="ItensDivAll">
-                                        <div class="ItensDivImagens">
-                                        </div>
-                                        <div class="ItensDescricao">
-                                            <label>Título: <%= post.titulo %></label><br>
-                                            <label>Descrição: <%= post.descricao %></label>
-                                        </div>
-                                    </div>
-                                    <br>
-                                <% }); %>
+                                <% if(user.administrador=='true' ) {%>
+                                    <form method="POST" action="/postar">
+                                        <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                                        <fieldset>
+                                            <legend>Faça a sua postagem</legend>
+                                            <label for="titulo">Título:</label>
+                                            <input type="text" name="titulo">
+                                            <label for="descricao">Descrição:</label>
+                                            <input type="text" name="descricao">
+                                            <label for="imagem">Imagem</label>
+                                            <input type="file" name="imagem" accept="image/">
+                                            <button type="submit">Postar</button>
+                                        </fieldset>
+                                    </form>
+                                    <%}; %>
+                                        <fieldset>
+                                            <legend>Todas as Postagens</legend>
+                                            <form method="POST" action="/filtrar">
+                                                <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                                                <label> Buscar Postagem</label>
+                                                <input type="text" placeholder="Pesquise pelo titúlo da postagem" name="busca">
+                                                <button type="submit">Buscar</button>
+                                            </form>
+                                                    <% posts.forEach(post=>{ %>
+                                                        <div class="ItensDivAll">
+                                                            <div class="ItensDivImagens">
+                                                            </div>
+                                                            <div class="ItensDescricao">
+                                                                <label>Título: <%= post.titulo %></label><br>
+                                                                <label>Descrição: <%= post.descricao %></label>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                    <% }); %>
+                                        </fieldset>
                             </fieldset>
-                            </fieldset>
-                        </form>
-                    <%} %>
+                            <%} %>
             </div>
         </header>
     </section>

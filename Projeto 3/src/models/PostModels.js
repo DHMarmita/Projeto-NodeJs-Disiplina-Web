@@ -59,4 +59,10 @@ Post.buscaPosts = async function(){
   return posts;
 }
 
+Post.buscaPostsFiltro = async function(buscar){
+  const post = await PostModel.find({titulo:  buscar})
+    .sort({criadosEm: -1});
+  return post;
+}
+
 module.exports = Post;

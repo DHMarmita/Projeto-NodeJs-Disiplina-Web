@@ -78,3 +78,27 @@ exports.criar = async (req, res) => {
         res.render('404');
     }
 };
+
+exports.filtrar = async(req, res) => {
+    try {
+        if(!req.body.busca){
+            req.flash('errors', 'Preencha todos os campos do filtro');
+            req.session.save(() => res.redirect('/'));
+            return;
+        }
+        res.redirect(`/${req.body.busca}`);
+    } catch (error) {
+        console.log(error);
+        res.render('404');
+    }
+};
+
+exports.filtro = async(req, res) => {
+    try {
+        const posts = await Post.buscaPostsFiltro(req.params.busca);
+        res.render('index', {posts});
+    } catch (error) {
+        console.log(error);
+        res.render('404');
+    }
+};
