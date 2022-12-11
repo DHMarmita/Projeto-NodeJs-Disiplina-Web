@@ -10,6 +10,5 @@ CRITÉRIOS DE AVALIAÇÃO QUE NÃO FORAM CUMPRIDOS:
 - Não foi possivel realizar o upload de imagens ou vídeos
 - Não há contador de postagem ou de visualizações
 - Não há uma plataforma de deploy desta aplicação
-- Não há funcionalidade de busca de conteudo
 
 Creio que fora isso, todos os critérios de avaliação estejam de acordo.
