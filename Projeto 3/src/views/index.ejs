@@ -1,0 +1,129 @@
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McDonald's - Brasil</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+    <nav>
+        <div>
+            <img class="logo" src="/assets/img/mcdonalds-logo-footer-bg-white.png" alt="McDonald's Logo">
+            <img class="burger" src="/assets/img/menu_hamburger_burger_icon_176431.png" alt="Burger Button">
+            <div class="menu_1">
+                <ul>
+                    <li><a href="https://www.mcdonalds.com.br/quemsomos/trabalhe-conosco">Trabalhe Conosco</a></li>
+                    <li><a href="https://www.mcdonalds.com.br/contato">Fale Conosco</a></li>
+                    <li><a href="https://www.mcdonalds.com.br/restaurantes">Méqui mais Próximo</a></li>
+                </ul>
+            </div>
+            <div class="download_app">
+                <a href="https://www.mcdonalds.com.br/apps">
+                    <img src="/assets/img/MCD_Descarga_la_app_406b004273.png" alt="Baixe o App McDonald's">
+                    <p>Baixe o App</p>
+                </a>
+            </div>
+            <div class="order_here">
+                <a href="https://www.mcdonalds.com.br/pedidos">
+                    <img src="/assets/img/79_15_1_icone_70x70_bf9839ed7c.png" alt="Peça seu Méqui">
+                    <p>Peça seu Méqui</p>
+                </a>
+            </div>
+            <div class="menu_2">
+                <ul>
+                    <li>Cardápio</li>
+                    <li>Lançamentos</li>
+                    <li>Quem Somos</li>
+                    <li>Família</li>
+                    <li>Promoções</li>
+                    <li>Méqui pra você</li>
+                    <li>McDia Feliz</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <header>
+            <img class="desktop" src="/assets/img/592_3_1_banner_home_1440x650_28f9c187ed.png" alt="Banner Promocional">
+            <img class="mobile" src="/assets/img/592_3_1_banner_home_320x480_8ea43de717.png"
+                alt="Banner Promocional Mobile">
+            <div class="block">
+                <h1 class="first_label">PEGA ESSA DICA</h1>
+                <p class="second_label">Peça seu Méqui sem pegar fila ou pelo McDelivery.</p>
+                <div class="click_here">
+                    <a href="https://www.mcdonalds.com.br/pedidos">
+                        <p>Clique aqui!</p>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <%- include('includes/messages'); %>
+                    <form method="POST" action="/cadastro">
+                        <fieldset>
+                            <legend>Cadastro</legend>
+                            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                            <label>Email:</label>
+                            <input type="email" name="email"><br>
+                            <label>Senha</label>
+                            <input type="password" name="senha"><br>
+                            <label>Administrador:</label>
+                            <input type="checkbox" value="true" name="administrador"><br>
+                            <button type="submit">Cadastrar</button>
+                        </fieldset>
+                    </form>
+                    <form method="POST" action="/login">
+                        <fieldset>
+                            <legend>Login</legend>
+                            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                            <label>Email:</label>
+                            <input type="email" name="email"><br>
+                            <label>Senha</label>
+                            <input type="password" name="senha"><br>
+                            <button type="submit">Entrar</button><br>
+                        </fieldset>
+                    </form>
+                    <% if (!user) {%>
+                    <%} else {%>
+                        <p>Usuário: <%= user.email %><br> Administrador: <% if (user.administrador != 'true'){%> Não <% }else{ %> Sim <%}  %>  </p>
+                        <form method="POST" action="/postar">
+                            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+                            <fieldset>
+                                <legend>Postagens</legend>
+                                 <% if(user.administrador == 'true') {%> 
+                                <fieldset>
+                                    <legend>Faça a sua postagem</legend>
+                                    <label for="titulo">Título:</label>
+                                    <input type="text" name="titulo">
+                                    <label for="descricao">Descrição:</label>
+                                    <input type="text" name="descricao">
+                                    <label for="imagem">Imagem</label>
+                                    <input type="file" name="imagem" accept="image/">
+                                    <button type="submit">Postar</button>
+                                </fieldset>
+                                <%};  %> 
+                                <fieldset>
+                                <legend>Todas as Postagens</legend>
+                                <% posts.forEach(post=>{ %>
+                                    <div class="ItensDivAll">
+                                        <div class="ItensDivImagens">
+                                        </div>
+                                        <div class="ItensDescricao">
+                                            <label>Título: <%= post.titulo %></label><br>
+                                            <label>Descrição: <%= post.descricao %></label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% }); %>
+                            </fieldset>
+                            </fieldset>
+                        </form>
+                    <%} %>
+            </div>
+        </header>
+    </section>
+</body>
+
+</html>
